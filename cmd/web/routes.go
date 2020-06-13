@@ -3,29 +3,11 @@ package main
 import (
 	"net/http"
 
+	// "github.com/bmizerany/pat"
 	"github.com/gorilla/mux"
+	// "github.com/gorilla/mux"
 	"github.com/justinas/alice"
 )
-
-// func (app *application) routes() http.Handler {
-// 	standardMiddleware := alice.New(app.recoverPanic, app.logRequest, secureHeaders)
-// 	dynamicMiddleware := alice.New(app.session.Enable, noSurf)
-
-// 	mux := pat.New()
-// 	mux.Get("/", dynamicMiddleware.ThenFunc(app.homePage))
-// 	mux.Get("/post/create", dynamicMiddleware.Append(app.requireAuthenticatedUser).ThenFunc(app.createPostPageForm))
-// 	mux.Post("/post/create", dynamicMiddleware.Append(app.requireAuthenticatedUser).ThenFunc(app.createPostPage))
-// 	mux.Get("/post/:id", dynamicMiddleware.ThenFunc(app.showPostPage))
-// 	mux.Get("/user/signup", dynamicMiddleware.ThenFunc(app.signupUserForm))
-// 	mux.Post("/user/signup", dynamicMiddleware.ThenFunc(app.signupUser))
-// 	mux.Get("/user/login", dynamicMiddleware.ThenFunc(app.loginUserForm))
-// 	mux.Post("/user/login", dynamicMiddleware.ThenFunc(app.loginUser))
-// 	mux.Post("/user/logout", dynamicMiddleware.Append(app.requireAuthenticatedUser).ThenFunc(app.logoutUser))
-// 	fileServer := http.FileServer(http.Dir("./ui/static/"))
-// 	mux.Get("/static/", http.StripPrefix("/static", fileServer))
-
-// 	return standardMiddleware.Then(mux)
-// }
 
 func (app *application) routes() http.Handler {
 
@@ -46,6 +28,12 @@ func (app *application) routes() http.Handler {
 	router.Handle("/user/login", dynamicMiddleware.Then(http.HandlerFunc(app.loginUserForm))).Methods("GET")
 	router.Handle("/user/login", dynamicMiddleware.Then(http.HandlerFunc(app.loginUser))).Methods("POST")
 	router.Handle("/user/logout", dynamicMiddleware.Then(rau.Then(http.HandlerFunc(app.logoutUser)))).Methods("POST")
+
+	//websocket for search pozition
+	router.Handle("/searchGps", dynamicMiddleware.Then(http.HandlerFunc(app.searchGps))).Methods("GET")
+	router.Handle("/wsSearchGps", dynamicMiddleware.Then(http.HandlerFunc(app.wsSearchGps)))
+
+	router.Handle("/maps", dynamicMiddleware.Then(http.HandlerFunc(app.maps))).Methods("GET")
 
 	fileServer := http.FileServer(http.Dir("./ui/static/"))
 	router.PathPrefix("/static/").Handler(http.StripPrefix("/static/", fileServer)).Methods("GET")

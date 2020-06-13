@@ -11,9 +11,11 @@ require (
 	github.com/gorilla/csrf v1.5.1 // indirect
 	github.com/gorilla/mux v1.7.1
 	github.com/gorilla/pat v0.0.0-20180118222023-199c85a7f6d1
+	github.com/gorilla/websocket v1.4.2 // indirect
 	github.com/justinas/alice v0.0.0-20171023064455-03f45bd4b7da
 	github.com/justinas/nosurf v0.0.0-20190416172904-05988550ea18
-	github.com/stretchr/testify v1.3.0 // indirect
+	github.com/novalagung/gubrak v1.0.0 // indirect
+	github.com/novalagung/gubrak/v2 v2.0.0 // indirect
 	github.com/tidwall/pretty v0.0.0-20190325153808-1166b9ac2b65 // indirect
 	github.com/xdg/scram v0.0.0-20180814205039-7eeb5667e42c // indirect
 	github.com/xdg/stringprep v1.0.0 // indirect

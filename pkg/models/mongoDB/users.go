@@ -34,12 +34,16 @@ func (m *UserModel) Insert(u *models.User, password string) error {
 }
 
 func (m *UserModel) Authenticate(email, password string) (interface{}, error) {
-	filter := bson.D{{"email", email}}
+	// filter := bson.M{"email": email}
 	var user models.User
+	fmt.Println(email, password)
 
 	collection := m.DB.Database("searchandfind").Collection("users")
-	err := collection.FindOne(context.TODO(), filter).Decode(&user)
+	fmt.Println(collection)
+	err := collection.FindOne(context.TODO(), bson.M{"email": email}).Decode(&user)
+	fmt.Println(err)
 	if err != nil {
+		fmt.Println("Coś jest nie tak!")
 		return nil, err
 	}
 
@@ -50,7 +54,7 @@ func (m *UserModel) Authenticate(email, password string) (interface{}, error) {
 	} else if err != nil {
 		return nil, err
 	}
-	// fmt.Println(user.ID.Hex())
+	fmt.Println(user.ID.Hex())
 	return user.ID.Hex(), nil
 }
 

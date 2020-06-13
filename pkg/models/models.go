@@ -28,3 +28,23 @@ type User struct {
 	HashedPassword []byte             `json:"hashedPassword,omitempty" bson:"hashedPassword,omitempty"`
 	Created        time.Time          `json:"created,omitempty" bson:"created,omitempty"`
 }
+
+type Devices struct {
+	ID      primitive.ObjectID `json:"_id,omitempty" bson:"_id,omitempty"`
+	Name    string             `json:"name,omitempty" bson:"name,omitempty"`
+	LastLat string             `json:"lastLat,omitempty" bson:"lastLat,omitempty"`
+	LastLng string             `json:"lastLng,omitempty" bson:"lastLng,omitempty"`
+}
+type RelactionDevices struct {
+	ID       primitive.ObjectID `json:"_id,omitempty" bson:"_id,omitempty"`
+	IDUser   primitive.ObjectID `json:"idUser,omitempty" bson:"idUser,omitempty"`
+	IDDevice primitive.ObjectID `json:"idDevice,omitempty" bson:"idDevice,omitempty"`
+}
+
+type LocationDevice struct {
+	ID          primitive.ObjectID `json:"_id,omitempty" bson:"_id,omitempty"`
+	IDDevice    primitive.ObjectID `json:"idDevice,omitempty" bson:"idDevice,omitempty"`
+	Lat         string             `json:"Lat,omitempty" bson:"Lat,omitempty"`
+	Lng         string             `json:"Lng,omitempty" bson:"Lng,omitempty"`
+	GetLocation time.Time          `json:"getLocation,omitempty" bson:"getLocation,omitempty"`
+}

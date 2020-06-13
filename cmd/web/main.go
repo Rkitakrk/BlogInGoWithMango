@@ -53,7 +53,7 @@ func main() {
 
 	session := sessions.New([]byte(*secret))
 	session.Lifetime = 12 * time.Hour
-	session.Secure = true
+	session.Secure = false
 	session.SameSite = http.SameSiteStrictMode
 
 	app := &application{
@@ -71,9 +71,9 @@ func main() {
 	}
 
 	srv := &http.Server{
-		Addr:         *addr,
-		ErrorLog:     errorLog,
-		Handler:      app.routes(),
+		Addr:     *addr,
+		ErrorLog: errorLog,
+		Handler:  app.routes(),
 		TLSConfig:    tlsConfig,
 		IdleTimeout:  time.Minute,
 		ReadTimeout:  5 * time.Second,
@@ -99,5 +99,6 @@ func openMongoDB(dsn string) (*mongo.Client, error) {
 	if err != nil {
 		return nil, err
 	}
+	
 	return client, nil
 }
